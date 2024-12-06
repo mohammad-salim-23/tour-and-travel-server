@@ -10,7 +10,8 @@ export interface ITour {
   startDates: Date[]
   startLocation: string
   locations: string[]
-  slug: string
+  slug: string 
+  availableSeats:number
 }
 
 export interface ITourMethods {
