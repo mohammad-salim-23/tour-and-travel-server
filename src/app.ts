@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express'
 import userRouter from './module/user/user.router'
 import tourRouter from './module/tour/tour.route'
 import { StatusCodes } from 'http-status-codes'
 import bookingRouter from './module/booking/booking.route'
+import { globalErrorHandler } from './middlewares/globalErrorHandler'
 
 const app = express()
 
@@ -22,10 +24,12 @@ app.get('/', (req: Request, res: Response) => {
   })
 })
 //global error handler
-app.use((err:any,req:Request, res:Response,_next:NextFunction)=>{
-  console.log('error from app.ts',err)
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-  .json({success:false,message:err.message,error:err})
+app.use(globalErrorHandler)
+app.use("*",(req:Request, res:Response)=>{
+  res.status(404).json({
+    status:false,
+    message:'API not found'
+  })
 })
 
 export default app
