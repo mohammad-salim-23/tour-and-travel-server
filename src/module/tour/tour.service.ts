@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import QueryBuilder from '../../builder/querybuilder'
 import { ITour } from './tour.interface'
 import Tour from './tour.model'
 
@@ -12,9 +14,11 @@ const createTour = async (payload: ITour) => {
   return result
 }
 
-const getTours = async () => {
+const getTours = async (query:Record<string,unknown>) => {
   const searchableFields = ["name","startLocation","locations"];
-  
+  const tours = new QueryBuilder(Tour.find(),query).search(searchableFields).filter().sort().paginate().select();
+  const result = await tours.modelQuery;
+  return result;
 }
 
 const getSingleTour = async (id: string) => {
