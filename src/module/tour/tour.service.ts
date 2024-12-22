@@ -13,8 +13,8 @@ const createTour = async (payload: ITour) => {
 }
 
 const getTours = async () => {
-  const result = Tour.find()
-  return result
+  const searchableFields = ["name","startLocation","locations"];
+  
 }
 
 const getSingleTour = async (id: string) => {
